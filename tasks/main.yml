@@ -1,26 +1,30 @@
 ---
 # tasks file for certbot-cloudflare
 
-- name: Get software for apt repository management.
-  apt: name={{ item }} state=present
-  with_items:
-    - build-essential
-    - curl
-    - libffi-dev
-    - libssl-dev
-    - python-apt
-    - python-dev
-    - python-pycurl
-
-- name: check if certbot-dns-cloudflare plugin is installed
-  shell: certbot plugins | grep dns-cloudflare
-  register: cf_check
-  ignore_errors: true
-  changed_when: "cf_check is failed"
-
-- name: Install certbot-dns-cloudflare
-  shell: "cd {{certbot_dir}}/certbot-dns-cloudflare && python setup.py install"
-  when: cf_check is failed
+#- name: Get software for apt repository management.
+#  apt: name={{ item }} state=present
+#  with_items:
+#    - build-essential
+#    - curl
+#    - libffi-dev
+#    - libssl-dev
+#    - python-apt
+#    - python-dev
+#    - python-pycurl
+#
+#- name: check if certbot-dns-cloudflare plugin is installed
+#  shell: certbot plugins | grep dns-cloudflare
+#  register: cf_check
+#  ignore_errors: true
+#  changed_when: "cf_check is failed"
+#
+#- name: Install certbot-dns-cloudflare
+#  shell: "cd {{certbot_dir}}/certbot-dns-cloudflare && python setup.py install"
+#  when: cf_check is failed
+- name: Install plugin
+  apt:
+    name: certbot-dns-cloudflare
+    state: latest
 
 - name: Create certbot folder - sudouser
   file:
