@@ -21,10 +21,10 @@
 #- name: Install certbot-dns-cloudflare
 #  shell: "cd {{certbot_dir}}/certbot-dns-cloudflare && python setup.py install"
 #  when: cf_check is failed
-- name: Install plugin
-  apt:
-    name: certbot-dns-cloudflare
-    state: latest
+#- name: Install plugin
+#  apt:
+#    name: certbot-dns-cloudflare
+#    state: latest
 
 - name: Create certbot folder - sudouser
   file:
